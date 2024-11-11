@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    # Chặn truy cập trực tiếp vào các thư mục nhạy cảm
+    RewriteEngine On
+
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)/(.*) - [F,L,NC]
+    RewriteRule ^(\.env|\.git|composer\.(lock|json)|artisan) - [F,L,NC]
+
+    # Tự động chuyển hướng về thư mục public
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+</IfModule>
